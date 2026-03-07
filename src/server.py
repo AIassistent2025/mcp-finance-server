@@ -8,7 +8,7 @@ from src.risk_metrics import calculate_var, calculate_sharpe_ratio, calculate_po
 
 mcp = FastMCP(
     "finance-server",
-    description="MCP server for financial data — market quotes, report parsing, risk metrics.",
+    instructions="MCP server for financial data — market quotes, report parsing, risk metrics.",
 )
 
 
