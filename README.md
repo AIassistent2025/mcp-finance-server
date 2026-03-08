@@ -132,16 +132,41 @@ All external API calls (yfinance) are mocked — tests run offline and fast.
 
 ---
 
-## Tech Stack
+## Why MCP for Finance?
 
-| Component | Technology |
-|---|---|
-| Protocol | MCP (Model Context Protocol) |
-| Server SDK | `mcp` (FastMCP) |
-| Market Data | yfinance (free, no API key) |
-| PDF Parsing | pypdf |
-| Risk Calculations | NumPy + pandas |
-| Testing | pytest + unittest.mock |
+Traditional AI interactions often suffer from "context drift" and "hallucinations" when dealing with precise financial data. The **Model Context Protocol (MCP)** solves this by:
+*   **Decoupling Logic from Reasoning:** The AI reasons about the strategy, while the MCP server provides the ground-truth data.
+*   **Standardized Interfaces:** Any LLM (Claude, ChatGPT, etc.) can use these tools without custom prompt engineering for every API.
+*   **Security & Privacy:** Financial data stays within your local or trusted environment, only the necessary context is shared with the model.
+
+---
+
+## Features Deep Dive
+
+### 📊 Real-Time Market Intelligence
+Powered by `yfinance`, our tools provide more than just price. We pull volume dynamics, sector classification, and key valuation ratios (P/E, Beta) to give the AI a 360-degree view of the ticker.
+
+### 📄 IFRS/GAAP Document Ingestion
+The `parse_report` tool doesn't just read text; it uses heuristic-driven logic to identify standard financial tables. It can distinguish between "Total Assets" and "Net Assets" across different reporting standards, ensuring the AI performs accurate longitudinal analysis.
+
+### 📉 Quantitative Risk Modeling
+We’ve implemented institutional-grade risk metrics:
+*   **Value at Risk (VaR):** Uses historical simulation to estimate potential portfolio drawdown.
+*   **Sharpe Ratio:** Automatically fetches risk-free rates to provide a realistic view of risk-adjusted performance.
+
+---
+
+## Troubleshooting
+
+*   **API Rate Limits:** `yfinance` is free but can be throttled. If you encounter errors, wait 60 seconds or use a VPN/Proxy.
+*   **PDF Parsing Issues:** Ensure the PDF is a text-based report (not a scanned image). For scanned PDFs, use an OCR pre-processor.
+*   **Path Errors:** Always use **absolute paths** when providing `pdf_path` to the tools.
+
+---
+
+## Contributing
+
+Contributions are welcome! Whether it's adding new risk metrics, supporting more broker APIs, or improving PDF parsing logic, feel free to open a PR.
 
 ---
 
